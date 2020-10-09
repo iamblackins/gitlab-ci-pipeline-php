@@ -38,4 +38,6 @@ export DEBIAN_FRONTEND=noninteractive
       unzip \
       zip \
       zlib1g-dev \
+      unixodbc \
+      unixodbc-dev \
       && rm -rf /var/lib/apt/lists/*

@@ -19,8 +19,6 @@ export extensions=" \
   xmlrpc \
   xsl \
   zip \
-  sqlsrv \
-  pdo_sqlsrv \
   "
 
 if [[ $PHP_VERSION == "7.4" || $PHP_VERSION == "7.3" || $PHP_VERSION == "7.2" ]]; then
@@ -131,8 +129,8 @@ if [[ $PHP_VERSION == "7.2" ]]; then
     && docker-php-source delete
 
   pecl channel-update pecl.php.net \
-    && pecl install amqp redis apcu mongodb imagick xdebug \
-    && docker-php-ext-enable amqp redis apcu mongodb imagick xdebug
+    && pecl install amqp redis apcu mongodb imagick xdebug sqlsrv pdo_sqlsrv \
+    && docker-php-ext-enable amqp redis apcu mongodb imagick xdebug sqlsrv pdo_sqlsrv
 
 elif [[ $PHP_VERSION == "7.4" || $PHP_VERSION == "7.3" ]]; then
   docker-php-source extract \
@@ -142,14 +140,14 @@ elif [[ $PHP_VERSION == "7.4" || $PHP_VERSION == "7.3" ]]; then
     && docker-php-source delete
 
   pecl channel-update pecl.php.net \
-    && pecl install amqp redis apcu mongodb imagick xdebug-beta \
-    && docker-php-ext-enable amqp redis apcu mongodb imagick xdebug
+    && pecl install amqp redis apcu mongodb imagick xdebug-beta sqlsrv pdo_sqlsrv \
+    && docker-php-ext-enable amqp redis apcu mongodb imagick xdebug sqlsrv pdo_sqlsrv
 
 else
   apt-get update && docker-php-ext-install -j$(nproc) mcrypt
   pecl channel-update pecl.php.net \
-    && pecl install amqp redis mongodb xdebug apcu memcached imagick \
-    && docker-php-ext-enable amqp redis mongodb xdebug apcu memcached imagick
+    && pecl install amqp redis mongodb xdebug apcu memcached imagick sqlsrv pdo_sqlsrv \
+    && docker-php-ext-enable amqp redis mongodb xdebug apcu memcached imagick sqlsrv pdo_sqlsrv
 fi
 
 { \
