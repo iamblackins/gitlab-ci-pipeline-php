@@ -30,6 +30,11 @@ COPY --from=composer:1 /usr/bin/composer /usr/bin/composer
 COPY ./php/scripts/*.sh /tmp/
 RUN chmod +x /tmp/*.sh
 
+RUN apt-get update
+RUN apt-get install -y apt-transport-https gnupg2
+RUN curl -fsSL  https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+RUN curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+
 # Install2
 RUN bash ./packages.sh \
   && bash ./extensions.sh \

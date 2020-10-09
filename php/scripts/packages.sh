@@ -13,6 +13,7 @@ echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup
 # we don't need and apt cache in a container
 echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache
 echo 'APT::Install-Recommends "false";' > /etc/apt/apt.conf
+
 export DEBIAN_FRONTEND=noninteractive
 
   dpkg-reconfigure -f noninteractive tzdata \
@@ -21,7 +22,7 @@ export DEBIAN_FRONTEND=noninteractive
       apt-transport-https \
       apt-utils \
       ca-certificates \
-  && apt-get install -yq \
+  && ACCEPT_EULA=Y  apt-get install -yq \
       build-essential \
       curl \
       git \
@@ -40,4 +41,6 @@ export DEBIAN_FRONTEND=noninteractive
       zlib1g-dev \
       unixodbc \
       unixodbc-dev \
+      mssql-tools \
+      msodbcsql17 \
       && rm -rf /var/lib/apt/lists/*
