@@ -43,4 +43,5 @@ export DEBIAN_FRONTEND=noninteractive
       unixodbc-dev \
       mssql-tools \
       msodbcsql17 \
+      && sudo ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd \
       && rm -rf /var/lib/apt/lists/*
